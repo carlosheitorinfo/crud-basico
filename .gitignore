@@ -1,59 +1,67 @@
-# Python-related files
-__pycache__/  # Diretórios de cache do Python
-*.py[cod]  # Arquivos compilados do Python
-*$py.class  # Arquivos de classe gerados pelo Python
+__pycache__/
+*.py[cod]
+*$py.class
 
 # C extensions
-*.so  # Arquivos de extensão em C
+*.so
 
-# Ambientes virtuais
-.Python  # Arquivo de ambiente virtual
-env/  # Diretório de ambiente virtual
-.venv/  # Diretório de ambiente virtual
-venv/  # Alternativa para o nome do ambiente virtual
+# Distribution / packaging
+.Python
+env/
+.venv/
+venv
+.venv
+.venv/*.*
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Arquivos de distribuição/empacotamento
-build/  # Diretório de build
-*.egg-info/  # Informações de pacotes instalados
-.eggs/  # Diretório de pacotes instalados
-lib/  # Diretório de bibliotecas
-lib64/  # Diretório de bibliotecas 64-bit
-dist/  # Diretório de distribuição
-wheels/  # Diretório de pacotes wheel
+# PyInstaller
+# These files are usually written by a python script from a template
+# before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
 
-# Logs do instalador
-pip-log.txt  # Logs do pip
-pip-delete-this-directory.txt  # Arquivo temporário do pip
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
 
-# Relatórios de teste e cobertura
-htmlcov/  # Relatórios HTML de cobertura
-.tox/  # Diretório de ambientes de teste tox
-.coverage  # Arquivo de cobertura
-.coverage.*  # Arquivos de cobertura adicionais
-.cache  # Diretório de cache
-nosetests.xml  # Relatórios de teste do Nose
-coverage.xml  # Relatórios de cobertura em XML
-*.cover  # Arquivos de cobertura
-.hypothesis/  # Diretório de dados do Hypothesis
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
 
-# Arquivos de tradução
-*.mo  # Arquivos de tradução compilados
-*.pot  # Arquivos de modelo de tradução
+# Translations
+*.mo
+*.pot
 
-# Arquivos específicos do Django
-*.log  # Arquivos de log
-local_settings.py  # Configurações locais
-*.sqlite3  # Arquivos de banco de dados SQLite
-media/  # Diretório de uploads de usuários
+# Django specific files
+*.log
+local_settings.py
+db.sqlite3
+media/  # For user-uploaded files, if not managed by a separate storage solution
 
-# Arquivos específicos de IDEs
-.idea/  # Configurações do PyCharm/IntelliJ
-.vscode/  # Configurações do Visual Studio Code
+# IDE-specific files (e.g., PyCharm)
+.idea/
 
-# Arquivos do sistema operacional
-.DS_Store  # Arquivo gerado pelo macOS
-Thumbs.db  # Arquivo gerado pelo Windows
-
-# Outros
-*.bak  # Arquivos de backup
-*.tmp  # Arquivos temporários
+# Operating System files
+.DS_Store
+Thumbs.db
