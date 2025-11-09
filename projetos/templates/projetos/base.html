@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Projetos{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">
+</head>
+<body>
+<header>
+  <h1><a href="{% url 'projetos:list' %}">Projetos</a></h1>
+  {% if user.is_authenticated %}
+    <p>Olá, {{ user.username }} | <a href="/admin/logout/">Sair</a></p>
+  {% else %}
+    <a href="/admin/login/?next=/">Entrar</a>
+  {% endif %}
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</header>
+<main>
+  {% block content %}{% endblock %}
+</main>
+<footer><small>CRUD Django didático</small></footer>
+</body>
+</html>

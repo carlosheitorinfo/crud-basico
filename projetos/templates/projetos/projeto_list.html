@@ -1,0 +1,43 @@
+{% extends 'projetos/base.html' %}  {# Herda o layout base definido no arquivo base.html #}
+
+{% block title %}Lista de Projetos{% endblock %}  {# Define o título da página como "Lista de Projetos" #}
+
+{% block content %}  {# Início do bloco de conteúdo principal da página #}
+<h2>Lista</h2>  {# Título principal da página #}
+
+<form method="get">  {# Formulário para busca e filtro de projetos #}
+  <input type="text" name="q" value="{{ request.GET.q }}" placeholder="buscar por nome ou responsável">  {# Campo de texto para busca por nome ou responsável #}
+  <select name="status">  {# Menu suspenso para filtrar por status #}
+    <option value="">Todos</option>  {# Opção para exibir todos os projetos #}
+    <option value="novo" {% if request.GET.status == 'novo' %}selected{% endif %}>Novo</option>  {# Opção para filtrar projetos com status "Novo" #}
+    <option value="andamento" {% if request.GET.status == 'andamento' %}selected{% endif %}>Em andamento</option>  {# Opção para filtrar projetos com status "Em andamento" #}
+    <option value="concluido" {% if request.GET.status == 'concluido' %}selected{% endif %}>Concluído</option>  {# Opção para filtrar projetos com status "Concluído" #}
+  </select>
+  <button type="submit">Filtrar</button>  {# Botão para enviar o formulário de busca e filtro #}
+  <a href="{% url 'projetos:create' %}">+ Novo</a>  {# Link para criar um novo projeto #}
+</form>
+
+<table>  {# Início da tabela para exibir a lista de projetos #}
+  <thead><tr><th>Nome</th><th>Responsável</th><th>Status</th><th>Prazo</th></tr></thead>  {# Cabeçalho da tabela #}
+  <tbody>
+  {% for p in object_list %}  {# Itera sobre a lista de projetos #}
+    <tr>
+      <td><a href="{% url 'projetos:detail' p.pk %}">{{ p.nome }}</a></td>  {# Link para os detalhes do projeto #}
+      <td>{{ p.responsavel }}</td>  {# Exibe o responsável pelo projeto #}
+      <td>{{ p.get_status_display }}</td>  {# Exibe o status do projeto com o rótulo legível #}
+      <td>{{ p.prazo|default:"—" }}</td>  {# Exibe o prazo do projeto ou "—" se não houver prazo #}
+    </tr>
+  {% empty %}  {# Caso a lista de projetos esteja vazia #}
+    <tr><td colspan="4">Nada encontrado.</td></tr>  {# Exibe uma mensagem indicando que não há projetos #}
+  {% endfor %}
+  </tbody>
+</table>
+
+<div>  {# Div para paginação #}
+  {% if is_paginated %}  {# Verifica se a lista está paginada #}
+    {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}&status={{ request.GET.status }}">Anterior</a>{% endif %}  {# Link para a página anterior, se existir #}
+    <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>  {# Exibe o número da página atual e o total de páginas #}
+    {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}&status={{ request.GET.status }}">Próxima</a>{% endif %}  {# Link para a próxima página, se existir #}
+  {% endif %}
+</div>
+{% endblock %}  {# Fim do bloco de conteúdo principal da página #}

@@ -1,0 +1,31 @@
+{% extends 'projetos/base.html' %}  {# Herda o layout base definido no arquivo base.html #}
+
+{% block title %}{{ view.object|default:'Novo' }} Projeto{% endblock %}  {# Define o título da página, que será "Novo Projeto" ou o nome do projeto sendo editado #}
+
+{% block content %}  {# Início do bloco de conteúdo principal da página #}
+<h2>{{ view.object|default:'Novo' }} Projeto</h2>  {# Exibe o título "Novo Projeto" ou o nome do projeto sendo editado #}
+<form method="post" novalidate>  {# Início do formulário HTML com o método POST e sem validação HTML padrão #}
+  {% csrf_token %}  {# Token de segurança CSRF para proteger contra ataques de falsificação de requisições #}
+  {{ form.non_field_errors }}  {# Exibe erros gerais do formulário que não estão associados a campos específicos #}
+  <div>
+    {{ form.nome.label_tag }} {{ form.nome }} {{ form.nome.errors }}  {# Campo para o nome do projeto, com rótulo e mensagens de erro #}
+  </div>
+  <div>
+    {{ form.descricao.label_tag }} {{ form.descricao }} {{ form.descricao.errors }}  {# Campo para a descrição do projeto, com rótulo e mensagens de erro #}
+  </div>
+  <div>
+    {{ form.responsavel.label_tag }} {{ form.responsavel }} {{ form.responsavel.errors }}  {# Campo para o responsável pelo projeto, com rótulo e mensagens de erro #}
+  </div>
+  <div>
+    {{ form.status.label_tag }} {{ form.status }} {{ form.status.errors }}  {# Campo para o status do projeto, com rótulo e mensagens de erro #}
+  </div>
+  <div>
+    {{ form.prazo.label_tag }} {{ form.prazo }} {{ form.prazo.errors }}  {# Campo para o prazo do projeto, com rótulo e mensagens de erro #}
+  </div>
+  <button type="submit">Salvar</button>  {# Botão para enviar o formulário #}
+  <a href="{% url 'projetos:list' %}">Cancelar</a>  {# Link para cancelar e voltar à lista de projetos #}
+  {% if view.object %}  {# Verifica se o objeto já existe (edição) #}
+    <a href="{% url 'projetos:delete' view.object.pk %}">Excluir</a>  {# Link para excluir o projeto, se ele já existir #}
+  {% endif %}
+</form>
+{% endblock %}  {# Fim do bloco de conteúdo principal da página #}

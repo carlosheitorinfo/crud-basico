@@ -1,0 +1,15 @@
+{% extends 'projetos/base.html' %}  {# Herda o layout base definido no arquivo base.html #}
+
+{% block title %}{{ object.nome }}{% endblock %}  {# Define o título da página como o nome do projeto #}
+
+{% block content %}  {# Início do bloco de conteúdo principal da página #}
+<h2>{{ object.nome }}</h2>  {# Exibe o nome do projeto como título principal #}
+<p><strong>Responsável:</strong> {{ object.responsavel }}</p>  {# Exibe o responsável pelo projeto #}
+<p><strong>Status:</strong> {{ object.get_status_display }}</p>  {# Exibe o status do projeto com o rótulo legível #}
+<p><strong>Prazo:</strong> {{ object.prazo|default:"—" }}</p>  {# Exibe o prazo do projeto ou "—" se não houver prazo #}
+<p><strong>Descrição:</strong><br>{{ object.descricao|linebreaks }}</p>  {# Exibe a descrição do projeto com quebras de linha preservadas #}
+<p>
+  <a href="{% url 'projetos:update' object.pk %}">Editar</a>  {# Link para editar o projeto #}
+  <a href="{% url 'projetos:list' %}">Voltar</a>  {# Link para voltar à lista de projetos #}
+</p>
+{% endblock %}  {# Fim do bloco de conteúdo principal da página #}

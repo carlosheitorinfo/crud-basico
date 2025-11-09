@@ -1,0 +1,14 @@
+{% extends 'projetos/base.html' %}  {# Herda o layout base definido no arquivo base.html #}
+
+{% block title %}Confirmar Exclusão{% endblock %}  {# Define o título da página como "Confirmar Exclusão" #}
+
+{% block content %}  {# Início do bloco de conteúdo principal da página #}
+<h2>Confirmar Exclusão</h2>  {# Título principal da página #}
+<p>Tem certeza de que deseja excluir o projeto <strong>{{ object.nome }}</strong>?</p>  {# Mensagem de confirmação com o nome do projeto #}
+
+<form method="post">  {# Início do formulário HTML com o método POST #}
+  {% csrf_token %}  {# Token de segurança CSRF para proteger contra ataques de falsificação de requisições #}
+  <button type="submit">Confirmar</button>  {# Botão para confirmar a exclusão #}
+  <a href="{% url 'projetos:list' %}">Cancelar</a>  {# Link para cancelar e voltar à lista de projetos #}
+</form>
+{% endblock %}  {# Fim do bloco de conteúdo principal da página #}
