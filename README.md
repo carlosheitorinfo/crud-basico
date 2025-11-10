@@ -87,3 +87,22 @@ python manage.py runserver  # Inicia o servidor de desenvolvimento do Django
       python manage.py runserver
       ```
     - Acesse as URLs `/` e `/admin` para verificar o funcionamento do CRUD e do painel administrativo.
+
+## Configurações adicionais
+
+### URL de Login
+Adicione a seguinte configuração no arquivo `settings.py` para redirecionar usuários não autenticados para a página de login do admin:
+
+```python
+LOGIN_URL = '/admin/login/'
+```
+
+### Logout com método POST
+Certifique-se de que o botão de logout no template utiliza um formulário com método `POST` para evitar erros de método não permitido (405):
+
+```html
+<form action="{% url 'logout' %}" method="post" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit" style="background: none; border: none; color: blue; cursor: pointer; text-decoration: underline;">Sair</button>
+</form>
+```
