@@ -35,6 +35,7 @@ class ProjetoCreateView(LoginRequiredMixin, CreateView):
     form_class = ProjetoForm  # Formulário usado para criar um novo projeto
     template_name = 'projetos/projeto_form.html'  # Template usado para o formulário de criação
     success_url = reverse_lazy('projetos:list')  # URL de redirecionamento após criação bem-sucedida
+    # https://docs.djangoproject.com/en/5.2/ref/urlresolvers/#reverse-lazy
 
     def form_valid(self, form):
         self._adicionar_mensagem_sucesso('Projeto criado com sucesso.')  # Adiciona mensagem de sucesso
