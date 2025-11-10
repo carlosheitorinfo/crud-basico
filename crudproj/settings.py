@@ -67,3 +67,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configura a URL de login para usar a página de login do admin
+LOGIN_URL = '/admin/login/'

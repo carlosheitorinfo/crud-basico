@@ -11,7 +11,12 @@
 <header>
   <h1><a href="{% url 'projetos:list' %}">Projetos</a></h1>
   {% if user.is_authenticated %}
-    <p>Olá, {{ user.username }} | <a href="/admin/logout/">Sair</a></p>
+    <p>Olá, {{ user.username }} | 
+    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+      {% csrf_token %}
+      <button type="submit" style="background: none; border: none; color: blue; cursor: pointer; text-decoration: underline;">Sair</button>
+    </form>
+    </p>
   {% else %}
     <a href="/admin/login/?next=/">Entrar</a>
   {% endif %}

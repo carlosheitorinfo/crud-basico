@@ -3,9 +3,14 @@ from django.urls import reverse_lazy  # Gera URLs de forma preguiçosa, resolven
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView  # Views genéricas para operações CRUD
 from django.db.models import Q  # Permite criar consultas complexas com condições "OU"
 from django.contrib import messages  # Exibe mensagens de feedback ao usuário
+from django.views.generic.base import View  # Import base view para criar a classe base
 
 from .models import Projeto  # Importa o modelo Projeto
 from .forms import ProjetoForm  # Importa o formulário personalizado para o modelo Projeto
+
+class ProjetoBaseView(LoginRequiredMixin, View):
+    def _adicionar_mensagem_sucesso(self, mensagem):
+        messages.success(self.request, mensagem)  # Exibe mensagem de sucesso
 
 class ProjetoListView(LoginRequiredMixin, ListView):
     model = Projeto  # Modelo associado à view
@@ -30,7 +35,7 @@ class ProjetoDetailView(LoginRequiredMixin, DetailView):
     model = Projeto  # Modelo associado à view
     template_name = 'projetos/projeto_detail.html'  # Template usado para exibir detalhes do projeto
 
-class ProjetoCreateView(LoginRequiredMixin, CreateView):
+class ProjetoCreateView(ProjetoBaseView, CreateView):
     model = Projeto  # Modelo associado à view
     form_class = ProjetoForm  # Formulário usado para criar um novo projeto
     template_name = 'projetos/projeto_form.html'  # Template usado para o formulário de criação
@@ -41,10 +46,7 @@ class ProjetoCreateView(LoginRequiredMixin, CreateView):
         self._adicionar_mensagem_sucesso('Projeto criado com sucesso.')  # Adiciona mensagem de sucesso
         return super().form_valid(form)  # Salva o objeto e redireciona
 
-    def _adicionar_mensagem_sucesso(self, mensagem):
-        messages.success(self.request, mensagem)  # Exibe mensagem de sucesso
-
-class ProjetoUpdateView(LoginRequiredMixin, UpdateView):
+class ProjetoUpdateView(ProjetoBaseView, UpdateView):
     model = Projeto  # Modelo associado à view
     form_class = ProjetoForm  # Formulário usado para atualizar um projeto existente
     template_name = 'projetos/projeto_form.html'  # Template usado para o formulário de atualização
@@ -54,10 +56,7 @@ class ProjetoUpdateView(LoginRequiredMixin, UpdateView):
         self._adicionar_mensagem_sucesso('Projeto atualizado com sucesso.')  # Adiciona mensagem de sucesso
         return super().form_valid(form)  # Salva as alterações e redireciona
 
-    def _adicionar_mensagem_sucesso(self, mensagem):
-        messages.success(self.request, mensagem)  # Exibe mensagem de sucesso
-
-class ProjetoDeleteView(LoginRequiredMixin, DeleteView):
+class ProjetoDeleteView(ProjetoBaseView, DeleteView):
     model = Projeto  # Modelo associado à view
     template_name = 'projetos/projeto_confirm_delete.html'  # Template usado para confirmar exclusão
     success_url = reverse_lazy('projetos:list')  # URL de redirecionamento após exclusão bem-sucedida
@@ -65,6 +64,3 @@ class ProjetoDeleteView(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         self._adicionar_mensagem_sucesso('Projeto excluído com sucesso.')  # Adiciona mensagem de sucesso
         return super().delete(request, *args, **kwargs)  # Realiza a exclusão e redireciona
-
-    def _adicionar_mensagem_sucesso(self, mensagem):
-        messages.success(self.request, mensagem)  # Exibe mensagem de sucesso
